@@ -1,45 +1,45 @@
 # == Class: nfsserver
 #
-# Full description of class nfsserver here.
+# Set up NFS server and exports. NFSv3 and NFSv4 supported.
+#
 #
 # === Parameters
 #
-# Document parameters here.
+# [nfs_v4]
+#   NFSv4 support. Will set up automatic bind mounts to export root.
+#   Disabled by default.
 #
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
+# [nfs_v4_export_root]
+#   Export root, where we bind mount shares, default /export
 #
-# === Variables
-#
-# Here you should define a list of variables that this module would require.
-#
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if it
-#   has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should not be used in preference to class parameters  as of
-#   Puppet 2.6.)
+# [nfs_v4_idmap_domain]
+#  Domain setting for idmapd, must be the same across server
+#  and clients. 
+#  Default is to use $domain fact.
 #
 # === Examples
 #
+#
 #  class { nfsserver:
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ]
+#    nfs_v4              => true,
+#    # Generally parameters below have sane defaults.
+#    nfs_v4_export_root  => "/export",
+#    nfs_v4_idmap_domain => "dom.ain"
 #  }
 #
 # === Authors
 #
-# Author Name <author@domain.com>
+# Harald Skoglund <haraldsk@redpill-linpro.com>
 #
 # === Copyright
 #
-# Copyright 2011 Your name here, unless otherwise noted.
+# Copyright 2012 Redpill Linpro, unless otherwise noted.
 #
 
 class nfsserver (
   $nfs_v4 = false,
   $nfs_v4_export_root = "/export",
-  $idmap_domain = $::domain
+  $nfs_v4_idmap_domain = $::domain
 ) {
 
   include nfsserver::install
@@ -88,7 +88,7 @@ class nfsserver::configure::nfs_v4::enabled {
       context => '/files/etc/idmapd.conf/General',
       lens    => 'Puppet.lns',
       incl    => '/etc/idmapd.conf',
-      changes => ["set Domain $nfsserver::idmap_domain"],
+      changes => ["set Domain $nfsserver::nfs_v4_idmap_domain"],
       notify  => Service['nfs-kernel-server', 'idmapd' ]
   }
 
