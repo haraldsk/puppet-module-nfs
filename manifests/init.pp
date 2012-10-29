@@ -56,6 +56,16 @@ class nfsserver::install {
           ensure => present,
       }
     }
+    'redhat', 'centos', 'sles': {
+      package {
+        [ 'nfs-utils', 'nfs4-acl-tools' ]:
+          ensure => present,
+      }
+    }
+    default: {
+     fail("Not tested on $operatingsystem")
+    }
+
   }
 
 }
