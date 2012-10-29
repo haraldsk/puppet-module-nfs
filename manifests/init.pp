@@ -52,13 +52,13 @@ class nfsserver::install {
 
     'ubuntu', 'debian': {
 
-      ensure_resource( 'package', 'nfs-kernel-server', { 'ensure' => 'present' } )
-      ensure_resource( 'package', 'nfs-common',        { 'ensure' => 'present' } )
-      ensure_resource( 'package', 'nfs4-acl-tools',    { 'ensure' => 'present' } )
+      ensure_resource( 'package', 'nfs-kernel-server', { 'ensure' => 'installed' } )
+      ensure_resource( 'package', 'nfs-common',        { 'ensure' => 'installed' } )
+      ensure_resource( 'package', 'nfs4-acl-tools',    { 'ensure' => 'installed' } )
     }
     'redhat', 'centos', 'sles': {
-      ensure_resource( 'package', 'nfs-utils',        { 'ensure' => 'present' } )
-      ensure_resource( 'package', 'nfs4-acl-tools',   { 'ensure' => 'present' } )
+      ensure_resource( 'package', 'nfs-utils',        { 'ensure' => 'installed' } )
+      ensure_resource( 'package', 'nfs4-acl-tools',   { 'ensure' => 'installed' } )
     }
     default: {
      fail("Not tested on $operatingsystem")
