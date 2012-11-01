@@ -1,4 +1,4 @@
-puppet-module-nfsserver
+puppet-module-nfs
 =======================
 
-Puppet module for setting up nfsserver and exports.
+Puppet module for setting up nfsserver and clients.
