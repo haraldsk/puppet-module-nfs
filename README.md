@@ -36,7 +36,7 @@ This will export /data/folder on the server and automagically mount it on client
   # they were exported from on the server
   node client {
     include nfs::client
-    Nfs::Server::Mount < < | | > >
+    Nfs::Server::Mount &lt;&lt;| | &lt;&lt; 
   }
 
 </pre>
