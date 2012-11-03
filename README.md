@@ -8,7 +8,6 @@ to clients.
 
 Optional nfs4-support.
 
-----------------------
 Dependencies
 ----------------------
 
@@ -18,7 +17,6 @@ Clients need to support augeas.
 Check Modulesfile for module dependencies
 
 
-----------------------
 Examples
 ----------------------
 
