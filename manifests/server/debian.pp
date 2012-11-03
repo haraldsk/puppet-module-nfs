@@ -29,10 +29,19 @@ class nfs::server::debian::configure {
 }
 
 class nfs::server::debian::service {
-  service {
-    'nfs-kernel-server':
-      ensure    => running,
-      subscribe => Augeas['/etc/idmapd.conf', '/etc/default/nfs-common'],
-      require   => Class['nfs::server::debian::configure']
+  if nfs::server::debian::nfs_v4 == true {
+    service {
+      'nfs-kernel-server':
+        ensure    => running,
+        subscribe => [ Concat['/etc/exports'], Augeas['/etc/idmapd.conf', '/etc/default/nfs-common'] ],
+        require   => Class['nfs::server::debian::configure']
+    }
+  } else {
+    service {
+      'nfs-kernel-server':
+        ensure    => running,
+        subscribe => Concat['/etc/exports'], 
+        require   => Class['nfs::server::debian::configure']
+    }
   }
 }

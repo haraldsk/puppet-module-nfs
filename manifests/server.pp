@@ -43,8 +43,11 @@ class nfs::server (
   $nfs_v4_idmap_domain          = $nfs::params::domain,
 ) inherits nfs::params {
 
-
-  $osfamily = downcase($::osfamily)
+  if $::osfamily == undef {
+    $osfamily = 'redhat'
+  } else {
+    $osfamily = downcase($::osfamily)
+  }
   if $osfamily in ['redhat', 'debian'] {
       class{ "nfs::server::${osfamily}":
         nfs_v4              => $nfs_v4,
@@ -59,25 +62,27 @@ class nfs::server (
 
 class nfs::server::configure {
 
-  if $nfs::server::nfs_v4 == true {
-    file {
-      "${nfs::server::nfs_v4_export_root}":
-        ensure => directory,
-    }
-  }
+  concat {'/etc/exports': }
 
-  concat {'/etc/exports':
-    notify => Service['nfs-kernel-server', 'portmap']
-  }
   concat::fragment{
     'header':
       target  => '/etc/exports',
       content => "# This file is configured through the nfs::server puppet module\n",
       order   => 01;
-    'root':
-      target  => '/etc/exports',
-      content => "${nfs::server::nfs_v4_export_root} ${nfs::server::nfs_v4_export_root_clients}\n",
-      order   => 02
+  }
+
+  if $nfs::server::nfs_v4 == true {
+
+    concat::fragment{
+      'root':
+        target  => '/etc/exports',
+        content => "${nfs::server::nfs_v4_export_root} ${nfs::server::nfs_v4_export_root_clients}\n",
+        order   => 02
+    }
+    file {
+      "${nfs::server::nfs_v4_export_root}":
+        ensure => directory,
+    }
   }
 }
 
