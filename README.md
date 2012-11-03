@@ -22,6 +22,7 @@ Examples
 
 Simple NFSv3 server and client example::
   
+<pre>
   node server {
     include nfs::server
     nfs::server::export{ '/data_folder':
@@ -34,3 +35,4 @@ Simple NFSv3 server and client example::
     Nfs::Server::Mount<<| |>>
   }
 
+</pre>
