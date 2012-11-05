@@ -43,18 +43,9 @@ class nfs::server (
   $nfs_v4_idmap_domain          = $nfs::params::domain,
 ) inherits nfs::params {
 
-  if $::osfamily == undef {
-    $osfamily = 'redhat'
-  } else {
-    $osfamily = downcase($::osfamily)
-  }
-  if $osfamily in ['redhat', 'debian'] {
-      class{ "nfs::server::${osfamily}":
-        nfs_v4              => $nfs_v4,
-        nfs_v4_idmap_domain => $nfs_v4_idmap_domain,
-      }
-  } else {
-    fail("Osfamliy: ${osfamily} not supported")
+  class{ "nfs::server::${osfamily}":
+    nfs_v4              => $nfs_v4,
+    nfs_v4_idmap_domain => $nfs_v4_idmap_domain,
   }
 
   include  nfs::server::configure
@@ -62,7 +53,10 @@ class nfs::server (
 
 class nfs::server::configure {
 
-  concat {'/etc/exports': }
+  concat {'/etc/exports': 
+    require => Class["nfs::server::${nfs::server::osfamily}"]
+  }
+
 
   concat::fragment{
     'header':

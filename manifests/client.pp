@@ -43,18 +43,9 @@ class nfs::client (
   $nfs_v4_idmap_domain = $nfs::params::nfs_v4_idmap_domain,
 ) inherits nfs::params {
 
-  if $::osfamily == undef {
-    $osfamily = 'redhat'
-  } else {
-    $osfamily = downcase($::osfamily)
+  class{ "nfs::client::${osfamily}":
+    nfs_v4              => $nfs_v4,
+    nfs_v4_idmap_domain => $nfs_v4_idmap_domain,
   }
 
-  if $osfamily in ['redhat', 'debian'] {
-      class{ "nfs::client::${osfamily}":
-        nfs_v4              => $nfs_v4,
-        nfs_v4_idmap_domain => $nfs_v4_idmap_domain,
-      }
-  } else {
-    fail("Osfamliy: ${osfamily} not supported")
-  }
 }
