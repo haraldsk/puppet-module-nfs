@@ -38,7 +38,7 @@ This will export /data/folder on the server and automagically mount it on client
   # they were exported from on the server
   node client {
     include nfs::client
-    Nfs::Server::Mount &lt;&lt;| | &gt;&gt; 
+    Nfs::Client::Mount &lt;&lt;| |&gt;&gt; 
   }
 
 </pre>
@@ -74,14 +74,14 @@ This will export /data/folder on the server and automagically mount it on client
 
   node client {
     include nfs::client
-    Nfs::Server::Mount &lt;&lt;| | &gt;&gt; 
+    Nfs::Client::Mount &lt;&lt;| |&gt;&gt; 
   }
 
   # Using a storeconfig override, to change ensure option, so we mount
   # all shares
   node greedy_client {
     include nfs::client
-    Nfs::Server::Mount &lt;&lt;| | &gt;&gt; {
+    Nfs::Client::Mount &lt;&lt;| |&gt;&gt; {
       ensure => 'mounted'
     }
   }
@@ -104,7 +104,7 @@ This will export /data/folder on the server and automagically mount it on client
   # http://docs.puppetlabs.com/guides/exported_resources.html
   node single_server_client {
     include nfs::client
-    Nfs::Server::Mount &lt;&lt;| server == 'server1'  | &gt;&gt; {
+    Nfs::Client::Mount &lt;&lt;| server == 'server1' |&gt;&gt; {
       ensure => 'absent',
     }
   }
@@ -143,8 +143,24 @@ This will export /data/folder on the server and automagically mount it on client
   node client {
     class { 'nfs::server':
       nfs_v4 = true,
+      nfs_v4_export_root_clients =>
+        '10.0.0.0/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)'
     }
-    Nfs::Server::Mount &lt;&lt;| | &gt;&gt; 
+    Nfs::Client::Mount &lt;&lt;| |&gt;&gt; 
+  }
+
+  # We can also mount the NFSv4 Root directly through nfs::client::mount::nfsv4::root.
+  # By default /srv will be used for as mount point, but can be overriden through
+  # the 'mounted' option.
+
+  node client2 {
+    $server = 'server'
+    class { 'nfs::server':
+      nfs_v4 = true,
+    }
+    Nfs::Client::Mount::Nfs_v4::Root &lt;&lt;| server == $server |&gt;&gt; { 
+      mount => "/srv/$server",
+    }
   }
 
 </pre>
@@ -205,7 +221,7 @@ This will export /data/folder on the server and automagically mount it on client
     # Be careful. Don't override mount points unless you are sure
     # that only one export will match your filter!
     
-    Nfs::Server::Mount &lt;&lt;| # filter goes here # | &gt;&gt; {
+    Nfs::Client::Mount &lt;&lt;| # filter goes here # |&gt;&gt; {
       # Directory where we want export mounted on client 
       mount     => undef, 
       remounts  => false,
