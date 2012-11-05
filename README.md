@@ -1,4 +1,4 @@
-puppet-module-nfs - For all your NFS Needs - Seriosly.
+puppet-module-nfs - for all your nfs needs - seriously.
 =======================
 
 Puppet module for setting up nfsserver and clients.
