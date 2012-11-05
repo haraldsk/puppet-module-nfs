@@ -5,7 +5,7 @@ define nfs::server::export (
   $bind = 'rbind',
   # globals for this share 
   # propogated to storeconfigs
-  $ensure = 'present',
+  $ensure = 'mounted',
   $mount = undef,
   $remounts = false,
   $atboot = false,

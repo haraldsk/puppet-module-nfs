@@ -1,5 +1,5 @@
 name    'haraldsk-nfs'
-version '1.0.1'
+version '1.1.0'
 source 'git@github.com:haraldsk/puppet-module-nfs.git'
 author 'haraldsk@redpill-linpro.com'
 license 'Apache License, Version 2.0'
