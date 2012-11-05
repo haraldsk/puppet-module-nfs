@@ -129,6 +129,8 @@ This will export /data/folder on the server and automagically mount it on client
   node server {
     class { 'nfs::server':
       nfs_v4 = true,
+      nfs_v4_export_root_clients =>
+        '10.0.0.0/24(rw,fsid=root,insecure,no_subtree_check,async,no_root_squash)'
     }
     nfs::server::export{ '/data_folder':
       ensure  => 'mounted',
