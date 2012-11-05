@@ -21,10 +21,11 @@
 #
 #
 #  class { nfs::server:
-#    nfs_v4              => true,
+#    nfs_v4                      => true,
+#     nfs_v4_export_root_clients => "*.${::domain}(ro,fsid=root,insecure,no_subtree_check,async,root_squash)",
 #    # Generally parameters below have sane defaults.
 #    nfs_v4_export_root  => "/export",
-#    nfs_v4_idmap_domain => "dom.ain"
+#    nfs_v4_idmap_domain => $::domain,
 #  }
 #
 # === Authors
