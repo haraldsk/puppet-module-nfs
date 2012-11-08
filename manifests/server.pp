@@ -68,7 +68,7 @@ class nfs::server::configure {
 
 
   concat::fragment{
-    'header':
+    'nfs_exports_header':
       target  => '/etc/exports',
       content => "# This file is configured through the nfs::server puppet module\n",
       order   => 01;
@@ -82,7 +82,7 @@ class nfs::server::configure {
 class nfs::server::nfs_v4::configure {
 
   concat::fragment{
-    'root':
+    'nfs_exports_root':
       target  => '/etc/exports',
       content => "${nfs::server::nfs_v4_export_root} ${nfs::server::nfs_v4_export_root_clients}\n",
       order   => 02
