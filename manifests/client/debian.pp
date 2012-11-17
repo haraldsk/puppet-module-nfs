@@ -13,13 +13,19 @@ class nfs::client::debian::install {
 
   case $::lsbdistcodename {
     'lucid': {
-      ensure_resource( 'package', 'portmap',           { 'ensure' => 'installed' } )
+      package { 'portmap':
+        ensure => installed,
+      }
     } default: {
-      ensure_resource( 'package', 'rpcbind',           { 'ensure' => 'installed' } )
+      package { 'rpcbind':
+        ensure => installed,
+      }
     }
   }
-  ensure_resource( 'package', 'nfs-common',        { 'ensure' => 'installed' } )
-  ensure_resource( 'package', 'nfs4-acl-tools',    { 'ensure' => 'installed' } )
+
+  package { ['nfs-common', 'nfs4-acl-tools']:
+    ensure => installed,
+  }
 
 }
 class nfs::client::debian::configure {
@@ -36,7 +42,7 @@ class nfs::client::debian::configure {
           context => '/files/etc/idmapd.conf/General',
           lens    => 'Puppet.lns',
           incl    => '/etc/idmapd.conf',
-          changes => ["set Domain $nfs::client::debian::nfs_v4_idmap_domain"],
+          changes => ["set Domain ${nfs::client::debian::nfs_v4_idmap_domain}"],
       }
   }
 
