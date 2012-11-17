@@ -1,6 +1,8 @@
 puppet-module-nfs - for all your nfs needs - seriously.
 =======================
 
+[![Build Status](https://secure.travis-ci.org/haraldsk/puppet-module-nfs.png?branch=master)](https://travis-ci.org/haraldsk/puppet-module-nfs)
+
 Puppet module for setting up nfs server and clients.
 
 Storeconfigs is used for propogating export configs
