@@ -15,9 +15,9 @@ class nfs::server::redhat(
 
 class nfs::server::redhat::install {
 
-  #ensure_resource( 'package', 'nfs-utils',        { 'ensure' => 'installed' } )
-  #ensure_resource( 'package', 'rpcbind',          { 'ensure' => 'installed' } )
-  ensure_resource( 'package', 'nfs4-acl-tools',   { 'ensure' => 'installed' } )
+  package { 'nfs4-acl-tools':
+    ensure => installed,
+  }
 
 }
 

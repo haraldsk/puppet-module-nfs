@@ -19,10 +19,11 @@ class nfs::server::debian(
 }
 
 class nfs::server::debian::install {
+  package {
+    'nfs-kernel-server':
+      ensure => 'installed',
+  }
 
-  ensure_resource( 'package', 'nfs-kernel-server', { 'ensure' => 'installed' } )
-  ensure_resource( 'package', 'nfs-common',        { 'ensure' => 'installed' } )
-  ensure_resource( 'package', 'nfs4-acl-tools',    { 'ensure' => 'installed' } )
 }
 class nfs::server::debian::configure {
 

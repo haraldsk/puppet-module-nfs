@@ -1,0 +1,6 @@
+[submodule "spec/fixtures/modules/concat"]
+	path = spec/fixtures/modules/concat
+	url = git://github.com/ripienaar/puppet-concat.git
+[submodule "spec/fixtures/modules/stdlib"]
+	path = spec/fixtures/modules/stdlib
+	url = https://github.com/puppetlabs/puppetlabs-stdlib
