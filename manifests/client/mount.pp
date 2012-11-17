@@ -110,7 +110,7 @@ define nfs::client::mount::nfs_v4::root (
   $atboot = false,
   $options = '_netdev',
   $bindmount = undef,
-  $tag = undef,
+  $tag = undef
 ) {
 
   include nfs::client
@@ -151,7 +151,7 @@ define nfs::client::mount::nfs_v4::root (
 
 define nfs::client::mount::nfs_v4::bindmount ( 
   $ensure = 'present',
-  $mount_name,
+  $mount_name
   ) {
 
   nfs::mkdir{"${mount_name}": }

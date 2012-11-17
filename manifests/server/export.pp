@@ -67,7 +67,7 @@ define nfs::server::export (
 
 define nfs::server::export::configure (
   $ensure = 'present',
-  $clients,
+  $clients
 ) {
 
   if $ensure != 'absent' {
@@ -84,7 +84,7 @@ define nfs::server::export::configure (
 define nfs::server::export::nfs_v4::bindmount ( 
   $ensure = 'mounted',
   $bind = $bind,
-  $v4_export_name,
+  $v4_export_name
 ) {
 
   $expdir = "${nfs::server::nfs_v4_export_root}/${v4_export_name}"
