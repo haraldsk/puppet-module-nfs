@@ -1,6 +1,17 @@
 require 'spec_helper'
 
 describe 'nfs::server' do
+    let(:facts) { {:operatingsystem => 'ubuntu', :concat_basedir => '/tmp', } }
+    it do
+      should contain_concat__fragment('nfs_exports_header').with( 'target' => '/etc/exports' )
+    end
+    context "nfs_v4 => true" do
+      let(:params) { {:nfs_v4 => true, } } 
+      it do
+        should contain_concat__fragment('nfs_exports_root').with( 'target' => '/etc/exports' )
+        should contain_file('/export').with( 'ensure' => 'directory' )
+      end
+    end
 
   context "operatingsysten => ubuntu" do
     let(:facts) { {:operatingsystem => 'ubuntu', :concat_basedir => '/tmp', } }
