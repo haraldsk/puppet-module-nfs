@@ -30,7 +30,7 @@ class nfs::server::debian::configure {
 }
 
 class nfs::server::debian::service {
-  if nfs::server::debian::nfs_v4 == 'true' {
+  if nfs::server::debian::nfs_v4 == true {
     service {
       'nfs-kernel-server':
         ensure    => running,
