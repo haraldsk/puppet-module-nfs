@@ -1,6 +1,6 @@
 class nfs::server::debian(
   $nfs_v4 = false,
-  $nfs_v4_idmap_domain = undef,
+  $nfs_v4_idmap_domain = undef
 ) {
 
   class{ 'nfs::client::debian':
