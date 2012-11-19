@@ -21,7 +21,7 @@ describe 'nfs::client::redhat' do
   end
 
   context ":nfs_v4 => true" do
-    let(:params) {{ :nfs_v4 => true }}
+    let(:params) {{ :nfs_v4 => 'true' }}
     it do
       should contain_augeas('/etc/idmapd.conf') 
     end
