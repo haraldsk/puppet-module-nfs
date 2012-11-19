@@ -6,7 +6,7 @@ describe 'nfs::server' do
       should contain_concat__fragment('nfs_exports_header').with( 'target' => '/etc/exports' )
     end
     context "nfs_v4 => true" do
-      let(:params) { {:nfs_v4 => true, } } 
+      let(:params) { {:nfs_v4 => 'true', } } 
       it do
         should contain_concat__fragment('nfs_exports_root').with( 'target' => '/etc/exports' )
         should contain_file('/export').with( 'ensure' => 'directory' )

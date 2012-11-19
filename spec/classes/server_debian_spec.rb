@@ -7,7 +7,7 @@ describe 'nfs::server::debian' do
     should contain_service('nfs-kernel-server').with( 'ensure' => 'running'  )
   end
   context ":nfs_v4 => true" do
-    let(:params) {{ :nfs_v4 => true }}
+    let(:params) {{ :nfs_v4 => 'true' }}
     it do
       should contain_service('idmapd').with( 'ensure' => 'running'  )
     end
