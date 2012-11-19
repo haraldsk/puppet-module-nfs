@@ -13,20 +13,22 @@ class nfs::server::debian(
       ensure => 'installed',
   }
 
-  if nfs::server::debian::nfs_v4 == true {
-    service {
+  case nfs::server::debian::nfs_v4 {
+    true: {
+      service {
+        'nfs-kernel-server':
+          ensure    => running,
+          subscribe => [
+            Concat['/etc/exports'],
+            Augeas['/etc/idmapd.conf', '/etc/default/nfs-common']
+            ],
+      }
+    } default: {
+      service {
       'nfs-kernel-server':
         ensure    => running,
-        subscribe => [
-          Concat['/etc/exports'],
-          Augeas['/etc/idmapd.conf', '/etc/default/nfs-common']
-          ],
-    }
-  } else {
-    service {
-    'nfs-kernel-server':
-      ensure    => running,
-      subscribe => Concat['/etc/exports'],
+        subscribe => Concat['/etc/exports'],
+      }
     }
   }
 }
