@@ -15,7 +15,7 @@ class nfs::server::redhat(
   }
 
   case nfs::server::redhat::nfs_v4 {
-    true: {
+    'true': {
       service {'nfs':
         ensure     => running,
         enable     => true,

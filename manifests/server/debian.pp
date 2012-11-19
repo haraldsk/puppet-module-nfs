@@ -14,7 +14,7 @@ class nfs::server::debian(
   }
 
   case nfs::server::debian::nfs_v4 {
-    true: {
+    'true': {
       service {
         'nfs-kernel-server':
           ensure    => running,
