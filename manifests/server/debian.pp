@@ -13,7 +13,7 @@ class nfs::server::debian(
       ensure => 'installed',
   }
 
-  if nfs::server::debian::nfs_v4 == true {
+  if $nfs::server::debian::nfs_v4 == true {
     service {
       'nfs-kernel-server':
         ensure    => running,
