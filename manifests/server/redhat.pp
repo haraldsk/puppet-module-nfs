@@ -24,7 +24,7 @@ class nfs::server::redhat::install {
 
 class nfs::server::redhat::service {
 
-  if nfs::server::redhat::nfs_v4 == true {
+  if $nfs::server::redhat::nfs_v4 == true {
       service {"nfs":
         ensure     => running,
         enable     => true,
