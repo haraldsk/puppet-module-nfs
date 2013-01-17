@@ -93,7 +93,7 @@ This will export /data/folder on the server and automagically mount it on client
   # also override mount point
   node media_client {
     include nfs::client
-    Nfs::Server::Mount &lt;&lt;|tag == 'media' | &gt;&gt; {
+    Nfs::Client::Mount &lt;&lt;|tag == 'media' | &gt;&gt; {
       ensure => 'mounted',
       mount  => '/import/media'
     }
