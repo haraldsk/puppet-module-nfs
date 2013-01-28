@@ -23,7 +23,7 @@ define nfs::client::mount (
   $ensure = 'mounted',
   $server,
   $share,
-  $mount = undef,
+  $mount = $title,
   $remounts = false,
   $atboot = false,
   $options = '_netdev',
