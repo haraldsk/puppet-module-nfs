@@ -10,6 +10,10 @@ to clients.
 
 Optional nfs4-support.
 
+Management of daemons required for Kerberized nfs4
+servers and clients (Red Hat and Fedora only for now).
+
+
 Dependencies
 ----------------------
 
@@ -18,8 +22,11 @@ Clients need to support augeas.
 
 Check Modulesfile for module dependencies
 
-I have tested the module on lucid, precise, centos5 and centos6.
+${original_author} has tested the module on lucid, precise, centos5 and centos6.
 Chances are good it will work on rhel and sles aswell.
+
+18-Jun-2013: Added Fedora 18 support.
+
 
 Examples
 ----------------------
@@ -169,13 +176,18 @@ This will export /data/folder on the server and automagically mount it on client
 
 ### NFSv4 insanely overcomplicated reference example
 
-
 <pre>
 
   # and on individual nodes.
   node server {
     class { 'nfs::server':
-      nfs_v4              => true,
+      nfs_v4                 => true,
+      nfs_v4_kerberos_realm  => 'EXAMPLE.COM',
+      nfs_v4_kerberized      => true,
+      rpcgssd_opts	     => '-v',
+      rpcsvcgssd_opts        => '-v',
+      rpcidmapd_opts         => '-v',
+
       # Below are defaults
       nfs_v4_idmap_domain => $::domain,
       nfs_v4_export_root  => '/export',
@@ -215,6 +227,11 @@ This will export /data/folder on the server and automagically mount it on client
     class { 'nfs::server':
       nfs_v4              => true,
       nfs_v4_idmap_domain => $::domain
+      nfs_v4_kerberos_realm  => 'EXAMPLE.COM',
+      nfs_v4_kerberized      => true,
+      rpcgssd_opts	     => '-v',
+      rpcsvcgssd_opts        => '-v',
+      rpcidmapd_opts         => '-v',
       nfs_v4_mount_root   => '/srv',
     }
 
@@ -241,7 +258,10 @@ This will export /data/folder on the server and automagically mount it on client
 
 Author
 -----------------
-Harald Skoglund <haraldsk@redpill-linpro.com>
+Original by Harald Skoglund <haraldsk@redpill-linpro.com>
+
+Simon Fraser University Research Computing Group
+      (Kerberized NFS4 support; Fedora 18+ support)
 
 Webpage
 -----------------
