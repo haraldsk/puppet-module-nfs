@@ -17,7 +17,7 @@ define nfs::client::mount::nfs_v4::root (
   $atboot = false,
   $options = '_netdev',
   $bindmount = undef,
-  $tag = undef
+  $nfstag = undef
 ) {
 
   include nfs::client

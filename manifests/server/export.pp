@@ -11,7 +11,7 @@ define nfs::server::export (
   $atboot = false,
   $options = '_netdev',
   $bindmount = undef,
-  $tag = undef
+  $nfstag = undef
 ) {
 
 
@@ -38,7 +38,7 @@ define nfs::server::export (
       atboot    => $atboot,
       options   => $options,
       bindmount => $bindmount,
-      tag       => $tag,
+      nfstag       => $nfstag,
       share     => "${v4_export_name}",
       server    => "${::clientcert}",
     }
@@ -58,7 +58,7 @@ define nfs::server::export (
       remounts        => $remounts,
       atboot          => $atboot,
       options         =>  $options,
-      tag             => $tag,
+      nfstag             => $nfstag,
       share           => "${v3_export_name}",
       server          => "${::clientcert}",
     }
