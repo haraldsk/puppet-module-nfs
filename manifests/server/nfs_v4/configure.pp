@@ -18,7 +18,7 @@ class nfs::server::nfs_v4::configure {
     atboot    => $nfs::server::nfs_v4_root_export_atboot,
     options   => $nfs::server::nfs_v4_root_export_options,
     bindmount => $nfs::server::nfs_v4_root_export_bindmount,
-    tag       => $nfs::server::nfs_v4_root_export_tag,
+    nfstag    => $nfs::server::nfs_v4_root_export_tag,
     server    => "${::clientcert}",
   }
 }
