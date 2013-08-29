@@ -21,4 +21,8 @@ describe 'nfs::client' do
     let(:facts) { {:operatingsystem => 'redhat', :osmajor => 6 } }
     it { should include_class('nfs::client::redhat') }
   end
+  context "operatingsystem => darwin" do
+    let(:facts) { {:operatingsystem => 'darwin', } }
+    it { should include_class('nfs::client::darwin' ) }
+  end
 end

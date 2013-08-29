@@ -15,6 +15,8 @@ class nfs::params (
       $osfamily = 'debian'
     } 'windows': {
       fail('fail!11')
+    } 'darwin':{
+      $osfamily = 'darwin'
     } default: {
       fail("OS: ${::operatingsystem} not supported")
     }

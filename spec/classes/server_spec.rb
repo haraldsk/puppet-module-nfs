@@ -33,4 +33,12 @@ describe 'nfs::server' do
     let(:facts) { {:operatingsystem => 'redhat', :concat_basedir => '/tmp', :osmajor => 6, } }
     it { should include_class('nfs::server::redhat') }
   end
+  context "operatingsysten => darwin" do
+    let(:facts) { {:operatingsystem => 'darwin'} }
+    it do 
+      expect {
+        should include_class('nfs::server::darwin')
+      }.to raise_error(Puppet::Error, /NFS server is not supported on Darwin/)
+    end
+  end
 end
