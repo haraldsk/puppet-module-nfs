@@ -12,9 +12,9 @@ class nfs::client::redhat::configure {
     augeas {
       '/etc/sysconfig/nfs':
         context => '/files/etc/sysconfig/nfs',
-        lens    => 'Sysconfig.lns',
+        lens    => 'Shellvars.lns',
         incl    => '/etc/sysconfig/nfs',
-        changes => [ "set SECURE_NFS $nfsv4secure", ];
+        changes => [ "set SECURE_NFS \"$nfsv4secure\"", ];
       '/etc/idmapd.conf':
         context => '/files/etc/idmapd.conf/General',
         lens    => 'Puppet.lns',
