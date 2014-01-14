@@ -20,7 +20,7 @@ describe 'nfs::client::debian' do
   context ":nfs_v4 => true" do
     let(:params) {{ :nfs_v4 => true }}
     it do
-      should contain_augeas('/etc/idmapd.conf') 
+      should contain_augeas('/etc/idmapd.conf')
       should contain_service('idmapd').with(
         'ensure' => 'running'
       )
