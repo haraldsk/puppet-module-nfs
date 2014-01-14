@@ -15,10 +15,42 @@ describe 'nfs::server' do
 
   shared_examples :debian do
     it { should contain_class('nfs::server::debian') }
+
+    it do
+      should contain_concat("/etc/exports").with({
+        'require' => [
+          'Class[Nfs::Server::Debian]',
+          'Package[nfs-kernel-server]',
+        ],
+        'notify'  => 'Service[nfs-kernel-server]',
+      })
+    end
+
+    it do
+      should_not contain_service("nfs-kernel-server").with({
+        'subscribe' => 'Concat[/etc/exports]'
+      })
+    end
   end
 
   shared_examples :redhat do
     it { should contain_class('nfs::server::redhat') }
+
+    it do
+      should contain_concat("/etc/exports").with({
+        'require' => [
+          'Class[Nfs::Server::Redhat]',
+          'Package[nfs-utils]',
+        ],
+        'notify'  => 'Service[nfs]',
+      })
+    end
+
+    it do
+      should_not contain_service("nfs").with({
+        'subscribe' => 'Concat[/etc/exports]'
+      })
+    end
   end
 
   context "operatingsysten => ubuntu" do
