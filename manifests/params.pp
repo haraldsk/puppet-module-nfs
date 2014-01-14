@@ -13,6 +13,8 @@ class nfs::params (
       $osfamily = 'redhat'
     } 'debian', 'Ubuntu': {
       $osfamily = 'debian'
+      $package_name = 'nfs-kernel-server'
+      $service_name = 'nfs-kernel-server'
     } 'windows': {
       fail('fail!11')
     } 'darwin':{
