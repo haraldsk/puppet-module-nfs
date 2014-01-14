@@ -11,6 +11,8 @@ class nfs::params (
   case $::operatingsystem {
     'centos', 'redhat', 'scientific', 'fedora': {
       $osfamily = 'redhat'
+      $package_name = 'nfs-utils'
+      $service_name = 'nfs'
     } 'debian', 'Ubuntu': {
       $osfamily = 'debian'
       $package_name = 'nfs-kernel-server'
