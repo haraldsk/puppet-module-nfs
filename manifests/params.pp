@@ -6,7 +6,7 @@ class nfs::params (
   $nfs_v4_idmap_domain = $::domain
 ) {
 
-  # Somehow the ::osfamliy fact doesnt exist on some oled systems
+  # ::osfamily fact doesnt exist with older facter versions (before 1.6.5 AFAIR)
 
   case $::operatingsystem {
     'centos', 'redhat', 'scientific', 'fedora': {
