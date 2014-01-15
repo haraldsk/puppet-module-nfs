@@ -19,7 +19,6 @@ describe 'nfs::server' do
     it do
       should contain_concat("/etc/exports").with({
         'require' => [
-          'Class[Nfs::Server::Debian]',
           'Package[nfs-kernel-server]',
         ],
         'notify'  => 'Service[nfs-kernel-server]',
@@ -39,7 +38,6 @@ describe 'nfs::server' do
     it do
       should contain_concat("/etc/exports").with({
         'require' => [
-          'Class[Nfs::Server::Redhat]',
           'Package[nfs-utils]',
         ],
         'notify'  => 'Service[nfs]',

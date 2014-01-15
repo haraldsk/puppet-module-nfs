@@ -1,8 +1,9 @@
 class nfs::server::configure {
 
+  include "nfs::server::${nfs::server::osfamily}"
+
   concat {'/etc/exports':
     require => [
-      Class["nfs::server::${nfs::server::osfamily}"],
       Package[$nfs::server::package_name],
     ],
     notify  => Service[$nfs::server::service_name],
