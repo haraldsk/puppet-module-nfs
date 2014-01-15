@@ -7,7 +7,7 @@ class nfs::server::redhat::service {
         hasrestart => true,
         hasstatus  => true,
         require    => Package["nfs-utils"],
-        subscribe  => [ Concat['/etc/exports'], Augeas['/etc/idmapd.conf'] ],
+        subscribe  => Augeas['/etc/idmapd.conf'],
       }
     } else {
       service {"nfs":
@@ -16,7 +16,6 @@ class nfs::server::redhat::service {
         hasrestart => true,
         hasstatus  => true,
         require    => Package["nfs-utils"],
-        subscribe  => Concat['/etc/exports'],
      }
   }
 }
