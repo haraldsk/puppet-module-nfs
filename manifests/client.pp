@@ -49,4 +49,8 @@ class nfs::client (
     nfs_v4_idmap_domain => $nfs_v4_idmap_domain,
   }
 
+  Class["::nfs::client::${osfamily}::install"]      ->
+  Class["::nfs::client::${osfamily}::configure"]    ->
+  Class["::nfs::client::${osfamily}"]               ->
+  Class['::nfs::client']
 }
