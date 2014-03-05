@@ -49,7 +49,8 @@ class nfs::server (
   $nfs_v4_root_export_atboot    = false,
   $nfs_v4_root_export_options   = '_netdev',
   $nfs_v4_root_export_bindmount = undef,
-  $nfs_v4_root_export_tag       = undef
+  $nfs_v4_root_export_tag       = undef,
+
 ) inherits nfs::params {
 
   class{ "nfs::server::${osfamily}":

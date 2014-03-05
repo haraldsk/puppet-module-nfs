@@ -19,4 +19,20 @@ class nfs::params (
       fail("OS: ${::operatingsystem} not supported")
     }
   }
+
+  case $::lsbdistcodename {
+    'lucid': {
+      $portmap_service = 'portmap'
+      $portmap_package = 'portmap'
+    }
+    'precise': {
+      $portmap_service = 'portmap'
+      $portmap_package = 'portmap'
+    }
+    default: {
+      $portmap_service = 'rpcbind'
+      $portmap_package = 'rpcbind'
+    }
+  }
+
 }
