@@ -1,14 +1,14 @@
-class nfs::client::debian::service {
+class nfs::client::debian::service inherits nfs::params {
 
   Service{
     require => Class['nfs::client::debian::configure']
   }
 
-    service { "portmap":
-      ensure    => running,
-      enable    => true,
-      hasstatus => false,
-    } 
+  service { "${::nfs::params::portmap_service}":
+    ensure    => running,
+    enable    => true,
+    hasstatus => false,
+  } 
 
   if $nfs::client::debian::nfs_v4 {
     service {
