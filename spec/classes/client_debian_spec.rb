@@ -2,9 +2,9 @@ require 'spec_helper'
 describe 'nfs::client::debian' do
 
   it do
-    should include_class('nfs::client::debian::install')
-    should include_class('nfs::client::debian::configure')
-    should include_class('nfs::client::debian::service')
+    should contain_class('nfs::client::debian::install')
+    should contain_class('nfs::client::debian::configure')
+    should contain_class('nfs::client::debian::service')
 
     should contain_service('portmap').with(
       'ensure' => 'running'
