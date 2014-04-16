@@ -1,5 +1,6 @@
 spec/fixtures/modules/*
 spec/fixtures/manifests/*
 *swp
+*.bak
 
 .DS_Store
