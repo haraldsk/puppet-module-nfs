@@ -25,6 +25,16 @@ class nfs::client::redhat::service {
     },
   }
 
+  if $nfs::client::redhat::nfs_v4_secure {
+    service {'rpcgssd':
+      enable     => true,
+      ensure     => running,
+      hasstatus  => true,
+      hasrestart => true,
+      require    => Package["nfs-utils"],
+    }
+  }
+  
   if $nfs::client::redhat::osmajor == 6 {
     service {"rpcbind":
       ensure    => running,

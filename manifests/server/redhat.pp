@@ -1,10 +1,12 @@
 class nfs::server::redhat(
   $nfs_v4 = false,
+  $nfs_v4_secure = false,
   $nfs_v4_idmap_domain = undef
 ) {
 
   class{ 'nfs::client::redhat':
     nfs_v4              => $nfs_v4,
+    nfs_v4_secure       => $nfs_v4_secure,
     nfs_v4_idmap_domain => $nfs_v4_idmap_domain,
   }
 
