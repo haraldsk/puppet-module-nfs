@@ -35,7 +35,7 @@ describe 'nfs::server' do
   end
   context "operatingsysten => darwin" do
     let(:facts) { {:operatingsystem => 'darwin'} }
-    it do 
+    it do
       expect {
         should contain_class('nfs::server::darwin')
       }.to raise_error(Puppet::Error, /NFS server is not supported on Darwin/)
