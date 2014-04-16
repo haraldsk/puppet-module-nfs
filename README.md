@@ -176,6 +176,8 @@ This will export /data/folder on the server and automagically mount it on client
   node server {
     class { 'nfs::server':
       nfs_v4              => true,
+      # Turn on Kerberos support
+      nfs_v4_secure       => true,
       # Below are defaults
       nfs_v4_idmap_domain => $::domain,
       nfs_v4_export_root  => '/export',
@@ -214,6 +216,8 @@ This will export /data/folder on the server and automagically mount it on client
   node client {
     class { 'nfs::server':
       nfs_v4              => true,
+      # Turn on Kerberos support
+      nfs_v4_secure       => true,
       nfs_v4_idmap_domain => $::domain
       nfs_v4_mount_root   => '/srv',
     }

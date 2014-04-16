@@ -9,6 +9,10 @@
 #   NFSv4 support.
 #   Disabled by default.
 #
+# [nfs_v4_secure]
+#   NFS4 secure (Kerberos) support.
+#   Disabled by default.
+#
 # [nfs_v4_mount_root]
 #   Mount root, where we  mount shares, default /srv
 #
@@ -40,14 +44,11 @@
 
 class nfs::client (
   $nfs_v4              = $nfs::params::nfs_v4,
+  $nfs_v4_secure       = $nfs::params::nfs_v4_secure,
   $nfs_v4_mount_root   = $nfs::params::nfs_v4_mount_root,
   $nfs_v4_idmap_domain = $nfs::params::nfs_v4_idmap_domain
 ) inherits nfs::params {
 
   include "::nfs::client::${osfamily}"
 
-  Class["::nfs::client::${osfamily}::install"]      ->
-  Class["::nfs::client::${osfamily}::configure"]    ->
-  Class["::nfs::client::${osfamily}"]               ->
-  Class['::nfs::client']
 }
