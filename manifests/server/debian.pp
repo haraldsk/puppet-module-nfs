@@ -26,7 +26,6 @@ class nfs::server::debian(
     service {
     'nfs-kernel-server':
       ensure    => running,
-      subscribe => Concat['/etc/exports'],
     }
   }
 }
