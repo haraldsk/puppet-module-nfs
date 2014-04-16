@@ -5,7 +5,7 @@ class nfs::client::debian::configure {
 
   if $nfs::client::debian::nfs_v4 {
     if $nfs::client::debian::nfs_v4_secure {
-      $needgssd = 'yes',
+      $needgssd = 'yes'
     } else {
       $needgssd = 'no'
     }

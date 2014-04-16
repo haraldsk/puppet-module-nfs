@@ -1,5 +1,6 @@
 class nfs::client::debian (
   $nfs_v4 = false,
+  $nfs_v4_secure = false,
   $nfs_v4_idmap_domain = undef
 ) {
 
