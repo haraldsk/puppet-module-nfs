@@ -1,7 +1,7 @@
 class nfs::client::debian::install {
 
-  case $::lsbdistcodename {
-    'lucid': {
+  case $::operatingsystem  {
+    'Ubuntu': {
       package { 'portmap':
         ensure => installed,
       }

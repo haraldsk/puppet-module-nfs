@@ -1,11 +1,7 @@
 class nfs::server::debian::install {
 
-  package { 
-    'nfs-common':
-    ensure => installed;
-
-    'portmap':
-    ensure => installed;
+  package { 'nfs-kernel-server':
+    ensure => installed
   }
 
 }
