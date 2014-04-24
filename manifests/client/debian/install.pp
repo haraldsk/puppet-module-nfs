@@ -6,14 +6,14 @@ class nfs::client::debian::install {
         ensure => installed,
       }
 
-      Service ['portmap']{ require => Package['portmap'] }
+     Package['portmap'] ->  Service ['portmap']
 
     } default: {
       package { 'rpcbind':
         ensure => installed,
       }
 
-      Service ['portmap']{ require => Package['rpcbind'] }
+     Package['rpcbind'] -> Service ['portmap']
 
     }
   }
