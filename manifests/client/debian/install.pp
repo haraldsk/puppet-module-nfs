@@ -4,7 +4,7 @@ class nfs::client::debian::install {
         ensure => installed,
       }
 
-     Package['rpcbind'] -> Service ['portmap']
+#     Package['rpcbind'] -> Service ['portmap']
 
 
   package { ['nfs-common', 'nfs4-acl-tools']:
