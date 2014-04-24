@@ -1,19 +1,19 @@
 class nfs::client::debian::install {
 
   case $::operatingsystem  {
-    'Ubuntu': {
+    'Ubuntu': {     # Valid for version after lucid 
       package { 'portmap':
         ensure => installed,
       }
 
-      Service {'portmap': require => Package['portmap'] }
+      Service ['portmap']{ require => Package['portmap'] }
 
     } default: {
       package { 'rpcbind':
         ensure => installed,
       }
 
-      Service {'portmap': require => Package['rpcbind'] }
+      Service ['portmap']{ require => Package['rpcbind'] }
 
     }
   }
