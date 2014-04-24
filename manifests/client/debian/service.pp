@@ -4,7 +4,7 @@ class nfs::client::debian::service {
     require => Class['nfs::client::debian::configure']
   }
 
-    service { "portmap":
+    service { "rpcbind":
       ensure    => running,
       enable    => true,
       hasstatus => false,
