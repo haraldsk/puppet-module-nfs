@@ -3,12 +3,17 @@ class nfs::client::debian::service {
   Service{
     require => Class['nfs::client::debian::configure']
   }
-
+    if $::operatingsystem == 'Ubuntu' {
+      service { "rpcbind":
+      ensure    => running,
+    }
+     
+    } else {
     service { "portmap":
       ensure    => running,
       enable    => true,
       hasstatus => false,
-    } 
+    } }
 
   if $nfs::client::debian::nfs_v4 {
     service {
