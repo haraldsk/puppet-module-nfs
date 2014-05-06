@@ -6,7 +6,7 @@ describe 'nfs::client::debian' do
     should contain_class('nfs::client::debian::configure')
     should contain_class('nfs::client::debian::service')
 
-    should contain_service('portmap').with(
+    should contain_service('rpcbind').with(
       'ensure' => 'running'
     )
 
@@ -14,8 +14,9 @@ describe 'nfs::client::debian' do
       'ensure' => 'stopped'
     )
     should contain_package('nfs-common')
+    should contain_package('rpcbind')
+    
     should contain_package('nfs4-acl-tools')
-
   end
   context ":nfs_v4 => true" do
     let(:params) {{ :nfs_v4 => true }}
@@ -27,15 +28,4 @@ describe 'nfs::client::debian' do
     end
   end
 
-  context ":lsbcodedistname => lucid" do
-    let(:facts) { {:lsbdistcodename => 'lucid', } }
-    it do
-      should contain_package('portmap')
-    end
-  end
-  context "lsbcodedistname => undef" do
-    it do
-      should contain_package('rpcbind')
-    end
-  end
 end
