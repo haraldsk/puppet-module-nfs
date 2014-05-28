@@ -2,13 +2,16 @@
 # refactored a bit
 
 class nfs::client::redhat (
-  $nfs_v4 = false,
-  $nfs_v4_idmap_domain = undef
+  $nfs_v4              =  $::nfs::client::nfs_v4,
+  $nfs_v4_idmap_domain =  $::nfs::client::nfs_v4_idmap_domain,
+  $manage_service      = true,
 ) inherits nfs::client::redhat::params {
 
-  include nfs::client::redhat::install, 
-    nfs::client::redhat::configure, 
-    nfs::client::redhat::service
+  include nfs::client::redhat::install
+  include nfs::client::redhat::configure
 
-
+  $do_manage_service = str2bool($manage_service)
+  if $do_manage_service {
+    include nfs::client::redhat::service
+  }
 }

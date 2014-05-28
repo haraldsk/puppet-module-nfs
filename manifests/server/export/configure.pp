@@ -4,7 +4,7 @@ define nfs::server::export::configure (
 ) {
 
   if $ensure != 'absent' {
-    $line = "${name} ${clients}\n"
+    $line = sprintf("%s %s\n", $name, join($clients, " "))
 
     concat::fragment{
       "${name}":

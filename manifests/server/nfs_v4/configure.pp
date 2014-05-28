@@ -6,9 +6,17 @@ class nfs::server::nfs_v4::configure {
       content => "${nfs::server::nfs_v4_export_root} ${nfs::server::nfs_v4_export_root_clients}\n",
       order   => 02
   }
-  file {
-    "${nfs::server::nfs_v4_export_root}":
-      ensure => directory,
+
+
+  if  defined (File[$nfs::server::nfs_v4_export_root]) and
+    ! defined_with_params(File[$nfs::server::nfs_v4_export_root], {'ensure' => 'directory' }) {
+      fail("Conflicting resource File[${nfs::server::nfs_v4_export_root}] needed in ${module_name}")
+  }
+
+  if ! defined (File[$nfs::server::nfs_v4_export_root]) {
+    file { $nfs::server::nfs_v4_export_root:
+        ensure => directory,
+    }
   }
 
   @@nfs::client::mount::nfs_v4::root {"shared server root by ${::clientcert}":
