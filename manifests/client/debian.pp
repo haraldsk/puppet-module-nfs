@@ -7,4 +7,13 @@ class nfs::client::debian (
     nfs::client::debian::configure,
     nfs::client::debian::service
 
+  anchor{ 'nfs::client::debian::start': }
+  ->
+  Class['nfs::client::debian::install']
+  ->
+  Class['nfs::client::debian::configure']
+  ->
+  Class['nfs::client::debian::service']
+  ->
+  anchor{ 'nfs::client::debian::end': }
 }

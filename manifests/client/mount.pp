@@ -75,6 +75,8 @@ define nfs::client::mount (
 
     nfs::mkdir{"${_mount}": }
 
+    Class['nfs::client']
+    ->
     mount {"shared $share by $::clientcert":
       ensure   => $ensure,
       device   => "${server}:${share}",
