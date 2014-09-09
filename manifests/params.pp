@@ -5,20 +5,22 @@ class nfs::params (
   $nfs_v4_mount_root  = '/srv',
   $nfs_v4_idmap_domain = $::domain
 ) {
-
+  $domain = $::domain
   # Somehow the ::osfamliy fact doesnt exist on some oled systems
 
-  case $::operatingsystem {
-    'centos', 'redhat', 'scientific', 'fedora': {
-      $osfamily = 'redhat'
-    } 'debian', 'Ubuntu': {
-      $osfamily = 'debian'
-    } 'windows': {
-      fail('fail!11')
-    } 'darwin':{
-      $osfamily = 'darwin'
-    } default: {
-      fail("OS: ${::operatingsystem} not supported")
+  if ! $::osfamily {
+    case $::operatingsystem {
+      'centos', 'redhat', 'scientific', 'fedora', 'OracleLinux': {
+        $osfamily = 'redhat'
+      } 'debian', 'Ubuntu': {
+        $osfamily = 'debian'
+      } 'windows': {
+        fail('fail!11')
+      } 'darwin':{
+        $osfamily = 'darwin'
+      } default: {
+        fail("OS: ${::operatingsystem} not supported")
+      }
     }
   }
 }
