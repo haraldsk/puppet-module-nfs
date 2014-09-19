@@ -10,7 +10,7 @@ class nfs::client::redhat::install {
     ensure => present,
   }
 
-  if $nfs::client::redhat::osmajor == 6 {
+  if $nfs::client::redhat::osmajor == 6 or $nfs::client::redhat::osmajor == 7 {
     package {'rpcbind':
       ensure => present,
     }
