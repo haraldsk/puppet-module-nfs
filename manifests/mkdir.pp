@@ -10,7 +10,8 @@ define nfs::mkdir() {
   file {
     "${name}":
       ensure  => directory,
-      require => Exec["mkdir_recurse_${name}"]
+      require => Exec["mkdir_recurse_${name}"],
+      mode => "0777",
   }
 
 }
