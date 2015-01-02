@@ -9,24 +9,28 @@ class nfs::params (
 
   # ::osfamily fact doesnt exist with older facter versions (before 1.6.5 AFAIR)
 
-  case $::operatingsystem {
-    'centos', 'redhat', 'scientific', 'fedora': {
-      $osfamily = 'redhat'
-      $package_name = 'nfs-utils'
-      $service_name = 'nfs'
-    } 'debian', 'Ubuntu': {
-      $osfamily = 'debian'
-      $package_name = 'nfs-kernel-server'
-      $service_name = 'nfs-kernel-server'
-    } 'windows': {
-      fail('fail!11')
-    } 'darwin':{
-      $osfamily = 'darwin'
-    } 'gentoo': {
-      $osfamily = 'gentoo'
-      $service_name = 'nfs'
-    } default: {
-      fail("OS: ${::operatingsystem} not supported")
+  $domain = $::domain
+
+  if $::osfamily == undef {
+    case $::operatingsystem {
+      'centos', 'redhat', 'scientific', 'fedora', 'OracleLinux' : {
+        $osfamily = 'redhat'
+        $package_name = 'nfs-utils'
+        $service_name = 'nfs'
+      } 'debian', 'Ubuntu': {
+        $osfamily = 'debian'
+        $package_name = 'nfs-kernel-server'
+        $service_name = 'nfs-kernel-server'
+      } 'windows': {
+        fail('fail!11')
+      } 'darwin':{
+        $osfamily = 'darwin'
+      } 'gentoo': {
+        $osfamily = 'gentoo'
+        $service_name = 'nfs'
+      } default: {
+        fail("OS: ${::operatingsystem} not supported")
+      }
     }
   }
 }
