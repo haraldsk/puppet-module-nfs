@@ -1,9 +1,7 @@
 language: ruby
 rvm:
-  - 1.8.7
   - 1.9.2
   - 1.9.3
-  - ree
 before_install:
   - git submodule update --init --recursive
 script: "rake spec"
@@ -11,3 +9,4 @@ env:
   - PUPPET_VERSION=2.7.25
   - PUPPET_VERSION=3.2.4
   - PUPPET_VERSION=3.4.3
+  - PUPPET_VERSION=3.7.3

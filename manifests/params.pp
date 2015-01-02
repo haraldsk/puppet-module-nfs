@@ -22,6 +22,9 @@ class nfs::params (
       fail('fail!11')
     } 'darwin':{
       $osfamily = 'darwin'
+    } 'gentoo': {
+      $osfamily = 'gentoo'
+      $service_name = 'nfs'
     } default: {
       fail("OS: ${::operatingsystem} not supported")
     }

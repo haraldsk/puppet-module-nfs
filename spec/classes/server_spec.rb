@@ -13,16 +13,20 @@ describe 'nfs::server' do
     end
   end
 
+  it do
+    should contain_concat("/etc/exports").with( 'ensure' => 'present' )
+  end
+
   shared_examples :debian do
     it { should contain_class('nfs::server::debian') }
 
-    it do
-      should contain_concat("/etc/exports").with({
-        'require' => [
-          'Package[nfs-kernel-server]',
-        ],
-        'notify'  => 'Service[nfs-kernel-server]',
-      })
+
+    context "nfs_v4 => true" do
+      let(:params) { {:nfs_v4 => true, } }
+      it do
+        should contain_concat__fragment('nfs_exports_root').with( 'target' => '/etc/exports' )
+        should contain_file('/export').with( 'ensure' => 'directory' )
+      end
     end
 
     it do
@@ -36,19 +40,14 @@ describe 'nfs::server' do
     it { should contain_class('nfs::server::redhat') }
 
     it do
-      should contain_concat("/etc/exports").with({
-        'require' => [
-          'Package[nfs-utils]',
-        ],
-        'notify'  => 'Service[nfs]',
-      })
-    end
-
-    it do
       should_not contain_service("nfs").with({
         'subscribe' => 'Concat[/etc/exports]'
       })
     end
+  end
+
+  shared_examples :gentoo do
+    # it { should contain_class('nfs::server::gentoo') }
   end
 
   context "operatingsysten => ubuntu" do
@@ -70,6 +69,10 @@ describe 'nfs::server' do
   context "operatingsysten => redhat v6" do
     let(:facts) { {:operatingsystem => 'redhat', :concat_basedir => '/tmp', :osmajor => 6, } }
     it_behaves_like :redhat
+  end
+  context "operatingsysten => gentoo" do
+    let(:facts) { {:operatingsystem =>  'gentoo', :concat_basedir => '/tmp',} }
+    it_behaves_like :gentoo
   end
   context "operatingsysten => darwin" do
     let(:facts) { {:operatingsystem => 'darwin'} }

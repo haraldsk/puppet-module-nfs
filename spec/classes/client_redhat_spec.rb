@@ -1,5 +1,20 @@
 require 'spec_helper'
 describe 'nfs::client::redhat' do
+  let(:facts) { {:osmajor => 7 } }
+  it do
+    should contain_class('nfs::client::redhat::install')
+    should contain_class('nfs::client::redhat::configure')
+    should contain_class('nfs::client::redhat::service')
+    should contain_service('nfslock').with(
+      'ensure' => 'running'
+    )
+    should contain_package('nfs-utils')
+    should contain_class('nfs::client::redhat')
+    should contain_package('rpcbind')
+    should contain_service('rpcbind').with(
+      'ensure' => 'running'
+    )
+  end
   let(:facts) { {:osmajor => 6 } }
   it do
     should contain_class('nfs::client::redhat::install')

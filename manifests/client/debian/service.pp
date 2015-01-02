@@ -8,7 +8,7 @@ class nfs::client::debian::service {
       ensure    => running,
       enable    => true,
       hasstatus => false,
-    } 
+    }
 
   if $nfs::client::debian::nfs_v4 {
     service {
