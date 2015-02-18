@@ -44,7 +44,7 @@ define nfs::client::mount (
 
     nfs::mkdir{"${_nfs4_mount}": }
 
-    mount {"shared $share by $::clientcert on ${_nfs4_mount}":
+    mount {"shared ${server}:${share} by $::clientcert on ${_nfs4_mount}":
       ensure   => $ensure,
       device   => "${server}:/${share}",
       fstype   => 'nfs4',
@@ -75,7 +75,7 @@ define nfs::client::mount (
 
     nfs::mkdir{"${_mount}": }
 
-    mount {"shared $share by $::clientcert":
+    mount {"shared ${server}:${share} by $::clientcert on ${_mount}":
       ensure   => $ensure,
       device   => "${server}:${share}",
       fstype   => 'nfs',
