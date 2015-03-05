@@ -25,6 +25,11 @@ describe 'nfs::server' do
     let(:facts) { {:operatingsystem => 'scientific', :concat_basedir => '/tmp', :osmajor => 6, } }
     it { should contain_class('nfs::server::redhat') }
   end
+  context "operatingsysten => SLC" do
+    let(:facts) { {:operatingsystem => 'SLC', :concat_basedir => '/tmp', :osmajor => 6, } }
+    it { should contain_class('nfs::server::redhat') }
+  end
+
   context "operatingsysten => centos v6" do
     let(:facts) { {:operatingsystem => 'centos', :concat_basedir => '/tmp', :osmajor => 6, } }
     it { should contain_class('nfs::server::redhat') }
