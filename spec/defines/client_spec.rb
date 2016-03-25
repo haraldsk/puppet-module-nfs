@@ -5,6 +5,6 @@ describe 'nfs::client::mount', :type => :define do
   let(:facts) { { :operatingsystem => 'ubuntu' } }
   let(:params) {{ :server => 'nfs.int.net', :share => '/srv/share' } }
   it do
-    should include_class('nfs::client')
+    should contain_class('nfs::client')
   end
 end

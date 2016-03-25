@@ -6,7 +6,7 @@ describe 'nfs::server' do
       should contain_concat__fragment('nfs_exports_header').with( 'target' => '/etc/exports' )
     end
     context "nfs_v4 => true" do
-      let(:params) { {:nfs_v4 => true, } } 
+      let(:params) { {:nfs_v4 => true, } }
       it do
         should contain_concat__fragment('nfs_exports_root').with( 'target' => '/etc/exports' )
         should contain_file('/export').with( 'ensure' => 'directory' )
@@ -15,29 +15,33 @@ describe 'nfs::server' do
 
   context "operatingsysten => ubuntu" do
     let(:facts) { {:operatingsystem => 'ubuntu', :concat_basedir => '/tmp', } }
-    it { should include_class('nfs::server::debian') }
+    it { should contain_class('nfs::server::debian') }
   end
   context "operatingsysten => debian" do
     let(:facts) { {:operatingsystem => 'debian', :concat_basedir => '/tmp',} }
-    it { should include_class('nfs::server::debian') }
+    it { should contain_class('nfs::server::debian') }
   end
   context "operatingsysten => scientific" do
     let(:facts) { {:operatingsystem => 'scientific', :concat_basedir => '/tmp', :osmajor => 6, } }
-    it { should include_class('nfs::server::redhat') }
+    it { should contain_class('nfs::server::redhat') }
   end
   context "operatingsysten => centos v6" do
     let(:facts) { {:operatingsystem => 'centos', :concat_basedir => '/tmp', :osmajor => 6, } }
-    it { should include_class('nfs::server::redhat') }
+    it { should contain_class('nfs::server::redhat') }
   end
   context "operatingsysten => redhat v6" do
     let(:facts) { {:operatingsystem => 'redhat', :concat_basedir => '/tmp', :osmajor => 6, } }
-    it { should include_class('nfs::server::redhat') }
+    it { should contain_class('nfs::server::redhat') }
+  end
+  context "operatingsysten => gentoo" do
+    let(:facts) { {:operatingsystem => 'gentoo', :concat_basedir => '/tmp',} }
+    it { should contain_class('nfs::server::gentoo') }
   end
   context "operatingsysten => darwin" do
     let(:facts) { {:operatingsystem => 'darwin'} }
-    it do 
+    it do
       expect {
-        should include_class('nfs::server::darwin')
+        should contain_class('nfs::server::darwin')
       }.to raise_error(Puppet::Error, /NFS server is not supported on Darwin/)
     end
   end

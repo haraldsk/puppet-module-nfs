@@ -7,6 +7,6 @@ summary 'nfs client and server module'
 description 'nfs client and server module'
 project_page 'https://github.com/haraldsk/puppet-module-nfs'
 
-dependency 'ripienaar/concat', '>= 0.2.0'
+dependency 'puppetlabs/concat', '>= 1.0.0'
 dependency 'puppetlabs/stdlib', '>= 3.0.1'
 

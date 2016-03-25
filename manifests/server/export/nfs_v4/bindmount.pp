@@ -1,4 +1,4 @@
-define nfs::server::export::nfs_v4::bindmount ( 
+define nfs::server::export::nfs_v4::bindmount (
   $ensure = 'mounted',
   $bind = $bind,
   $v4_export_name
