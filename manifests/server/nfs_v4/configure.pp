@@ -11,7 +11,7 @@ class nfs::server::nfs_v4::configure {
       ensure => directory,
   }
 
-  @@nfs::client::mount::nfs_v4::root {"shared server root by ${::clientcert}":
+  @@nfs::client::mount::nfs_v4::root {"shared server root by ${nfs::server::server}":
     ensure    => $nfs::server::nfs_v4_root_export_ensure,
     mount     => $nfs::server::nfs_v4_root_export_mount,
     remounts  => $nfs::server::nfs_v4_root_export_remounts,
@@ -19,6 +19,6 @@ class nfs::server::nfs_v4::configure {
     options   => $nfs::server::nfs_v4_root_export_options,
     bindmount => $nfs::server::nfs_v4_root_export_bindmount,
     nfstag    => $nfs::server::nfs_v4_root_export_tag,
-    server    => "${::clientcert}",
+    server    => "${nfs::server::server}",
   }
 }
